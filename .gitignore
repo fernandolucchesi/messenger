@@ -12,6 +12,7 @@
 /build
 
 # misc
+/src/styles/tailwind.output.css
 .DS_Store
 .env.local
 .env.development.local
