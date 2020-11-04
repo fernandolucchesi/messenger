@@ -8,14 +8,14 @@ function App() {
   const { showChat } = useContext(ChatContext);
 
   return (
-    <>
+    <div className="bg-gray-100">
       <Header />
-      <div className="container mx-auto h-screen shadow-2xl px-8 pt-20">
+      <div className="container mx-auto h-screen bg-white shadow-2xl px-8 pt-20">
         <h2 className="text-gray-700 py-4">Friends:</h2>
         <ContactList />
         <div className="mt-10">{showChat && <Chat name="Cognite" />}</div>
       </div>
-    </>
+    </div>
   );
 }
 
