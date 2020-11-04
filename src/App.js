@@ -1,10 +1,14 @@
+import ContactList from "./components/ContactList";
+import Header from "./components/Header";
+
 function App() {
   return (
-    <div className="max-w mx-auto flex p-6 bg-gray-100 shadow">
-      <div className="ml-6 pt-1">
-        <h1 className="text-2xl text-indigo-700">Messenger App</h1>
+    <>
+      <Header />
+      <div className="container mx-auto h-screen shadow-2xl px-12 pt-20">
+        <ContactList />
       </div>
-    </div>
+    </>
   );
 }
 
