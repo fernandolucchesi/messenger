@@ -1,17 +1,16 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { ChatContext } from "../contexts/ChatContext";
+import { ContactListContext } from "../contexts/ContactListContext";
 
 function Chat(props) {
   const [inputValue, setInputValue] = useState("");
   const input = useRef(null);
-  const [messages, setMessages] = useState([]);
   const { setShowChat } = useContext(ChatContext);
+  const { setMessageForContact } = useContext(ContactListContext);
 
-  const sendMessage = (e) => {
+  const sendMessage = (id, e) => {
     e.preventDefault();
-    let newMessages = messages;
-    newMessages.push(inputValue);
-    setMessages(newMessages);
+    setMessageForContact(id, inputValue);
     setInputValue("");
     input.current.focus();
   };
@@ -23,7 +22,7 @@ function Chat(props) {
   return (
     <div className="flex-column bg-gray-100 border rounded-l p-4">
       <div className="w-100 flex justify-end">
-        <div className="cursor-pointer" onClick={() => setShowChat(false)}>
+        <div className="cursor-pointer" onClick={() => setShowChat(undefined)}>
           <svg
             width="16px"
             xmlns="http://www.w3.org/2000/svg"
@@ -33,15 +32,16 @@ function Chat(props) {
           </svg>
         </div>
       </div>
-      <div className="pb-2">Chatting with: {props.name}</div>
+      <div className="pb-2">Chatting with: {props.contact.name}</div>
       <hr />
       <div
         style={{ height: 300 }}
         className="p-4 bg-white my-4 rounded overflow-y-auto rounded"
       >
-        {messages.map((message, index) => {
-          return <p key={index}>{message}</p>;
-        })}
+        {props.contact &&
+          props.contact.messages.map((message, index) => {
+            return <p key={index}>{message}</p>;
+          })}
       </div>
       <div className="w-full max-w-sm">
         <form className="flex items-center py-2">
@@ -58,7 +58,9 @@ function Chat(props) {
             />
           </label>
           <button
-            onClick={sendMessage}
+            onClick={(e) => {
+              sendMessage(props.contact.id, e);
+            }}
             className="mx-4 my-2 flex-shrink-0 border-transparent border-b border-4 bg-black text-white hover:bg-gray-900 text-sm py-1 px-4 rounded"
           >
             Send

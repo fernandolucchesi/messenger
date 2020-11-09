@@ -2,13 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import ChatContextProvider from "./contexts/ChatContext";
+import ContactListContextProvider from "./contexts/ContactListContext";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/tailwind.output.css";
 
 ReactDOM.render(
   <React.StrictMode>
     <ChatContextProvider>
-      <App />
+      <ContactListContextProvider>
+        <App />
+      </ContactListContextProvider>
     </ChatContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
